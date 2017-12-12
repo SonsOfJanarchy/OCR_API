@@ -22,6 +22,10 @@ namespace OCR_API
             //Config examples
             //this.Plugins.Add(new PostmanFeature());
             //this.Plugins.Add(new CorsFeature());
+            SetConfig(new HostConfig
+            {
+                DefaultContentType = MimeTypes.Json
+            });
         }
     }
 }

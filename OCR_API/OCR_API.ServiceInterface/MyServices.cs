@@ -29,9 +29,16 @@ namespace OCR_API.ServiceInterface
             return new HelloResponse { Result = "Hello! This is the Post method!" };
         }
 
-        public object Post(OCR request)
+        public object Any(OCR request)
         {
-            return new OCRResponse { ReturnMe = "You hit the OCR Get method!  inputValue = " + request.inputValue + ".  inputValueTwo: " + request.inputValueTwo};
+            //let's do something with the file...
+
+
+
+            OCRResponse myResponse = new OCRResponse();
+            myResponse.jsonResponse = "This is the return text.  You hit the OCR Get method successfully!";
+
+            return myResponse;
         }
     }
 }
