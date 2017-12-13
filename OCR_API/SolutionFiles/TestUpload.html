@@ -1,0 +1,51 @@
+<html>
+	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function btnUpload_Click () 
+		{
+			var uploader = document.getElementById('fuGetFile');
+		    var theData = {"FileName":"TempFileName",
+						   "RequestStream":"SomeStuff"
+			};
+			
+			$.ajax({
+				url: "http://localhost:61924/OCR",
+				type: "POST",
+				dataType: "JSONP",
+				data: JSON.stringify(theData),
+				async: false,
+				success: function (response) {
+					alert(response.responseText);
+				},
+				error: function (jqXHR, exception) {
+					var msg = '';
+					if (jqXHR.status === 0) {
+						msg = 'Not connect.\n Verify Network.';
+					} else if (jqXHR.status == 404) {
+						msg = 'Requested page not found. [404]';
+					} else if (jqXHR.status == 500) {
+						msg = 'Internal Server Error [500].';
+					} else if (exception === 'parsererror') {
+						msg = 'Requested JSON parse failed.';
+					} else if (exception === 'timeout') {
+						msg = 'Time out error.';
+					} else if (exception === 'abort') {
+						msg = 'Ajax request aborted.';
+					} else {
+						msg = 'Uncaught Error.\n' + jqXHR.responseText;
+					}
+					
+					alert(msg);
+				}
+			});
+		}
+	</script>
+	</head>
+	
+	<body>
+		<input type="file" id="fuGetFile" style="width:500px;"/>
+		<br /><br />
+		<input type="submit" id="btnUpload" onclick="btnUpload_Click()" value="Upload File" />
+	</body>
+</html>
