@@ -57,6 +57,7 @@
       <HintPath>..\..\packages\ServiceStack.Text.5.0.0\lib\net45\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Core" />
@@ -70,7 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyServices.cs" />
+    <Compile Include="OCRService.cs" />
     <Compile Include="Ocr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -11,7 +11,7 @@ namespace OCR_API
         /// Base constructor requires a Name and Assembly where web service implementation is located
         /// </summary>
         public AppHost()
-            : base("OCR_API", typeof(MyServices).Assembly) { }
+            : base("OCR_API", typeof(OCRService).Assembly) { }
 
         /// <summary>
         /// Application specific configuration
