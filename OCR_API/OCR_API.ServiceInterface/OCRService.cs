@@ -10,6 +10,7 @@ namespace OCR_API.ServiceInterface
 {
     public class OCRService : Service
     {
+        [EnableCors]
         public object Any(OCRRequest request)
         {
             OCRResponse myResponse = new OCRResponse();
@@ -22,7 +23,7 @@ namespace OCR_API.ServiceInterface
 
             string base64ImgStr = request.Base64UploadFile.ToString().Split(',')[1];
             byte[] tmpBytes = Convert.FromBase64String(base64ImgStr);
-            string fileName = DateTime.Now.Ticks.ToString();
+            string fileName = DateTime.Now.Ticks.ToString() + ".bmp";
             File.WriteAllBytes(@"C:\temp\OCR\" + fileName, tmpBytes);
 
             // now do the OCR junk here
