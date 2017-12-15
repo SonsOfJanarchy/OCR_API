@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR_API.ServiceInterface", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR_API.Tests", "OCR_API\OCR_API.Tests\OCR_API.Tests.csproj", "{D22B5797-9F2A-4BA7-9636-6EFCE62EBE00}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3E3A5971-EF49-499C-8CB3-8DAC3171B68E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98638701-45E3-43D1-ACCC-E353BE9543AC}"
 	ProjectSection(SolutionItems) = preProject
 		OCR_API\SolutionFiles\TestUpload.html = OCR_API\SolutionFiles\TestUpload.html
 	EndProjectSection
