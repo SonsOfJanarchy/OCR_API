@@ -7,11 +7,9 @@ using ServiceStack.Web;
 namespace OCR_API.ServiceModel
 {
     [Route("/OCR")]
-    public class OCRRequest : IRequiresRequestStream, IReturn<OCRResponse>
+    public class OCRRequest : IReturn<OCRResponse>
     {
-        public string FileName { get; set; }
-
-        public Stream RequestStream { get; set; }
+        public string Base64UploadFile { get; set; }
     }
 
     public class OCRResponse
