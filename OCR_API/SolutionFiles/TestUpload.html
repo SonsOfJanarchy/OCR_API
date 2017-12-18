@@ -3,7 +3,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		function btnUpload_Click () 
-		{		
+        {
+            document.getElementById('displayInfo').innerHTML = '';
 			var uploader = document.getElementById('fuGetFile');
 			var theFile = uploader.files[0];
 			var reader = new FileReader();
@@ -26,10 +27,11 @@
 				crossDomain: true,
 				jsonp: false,
 				processData: false,
-				cache: false,
+                cache: false,
+                async: true,
 				data: JSON.stringify(sendData),
 				success: function (response) {
-					alert(response);
+					ParseResult(response.jsonResponse);
 				},
 				error: function (jqXHR, exception) {
 					var msg = '';
@@ -52,7 +54,16 @@
 					alert(msg);
 				}
 			});
-		}
+        }
+
+        function ParseResult (resultJson)
+        {
+            var outputResult = resultJson.replace(new RegExp('",', 'g'), '", \n');
+            outputResult = outputResult.replace(new RegExp('null,', 'g'), 'null, \n');
+            outputResult = outputResult.replace(new RegExp('{', 'g'), '{ \n');
+            outputResult = outputResult.replace(new RegExp('}', 'g'), '\n}');
+            document.getElementById('displayInfo').innerHTML = outputResult;
+        }
 	</script>
 	</head>
 	
@@ -60,5 +71,7 @@
 		<input type="file" id="fuGetFile" style="width:500px;"/>
 		<br /><br />
 		<input type="button" id="btnUpload" onclick="btnUpload_Click()" value="Upload File" />
+        <br /><br />
+        <textarea id="displayInfo" style="width:500px; height:600px;"></textarea>
 	</body>
 </html>
