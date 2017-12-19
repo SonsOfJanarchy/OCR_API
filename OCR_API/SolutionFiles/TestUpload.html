@@ -5,11 +5,13 @@
 		function btnUpload_Click () 
         {
             document.getElementById('displayInfo').innerHTML = '';
+            document.getElementById('debugInfo').innerHTML = '';
 			var uploader = document.getElementById('fuGetFile');
 			var theFile = uploader.files[0];
 			var reader = new FileReader();
 			
-			reader.onloadend = function() {
+            reader.onloadend = function () {
+                document.getElementById('debugInfo').innerHTML = reader.result.toString();
 				doAjaxCall(reader.result.toString());
 			}
 			reader.readAsDataURL(theFile);
@@ -72,6 +74,7 @@
 		<br /><br />
 		<input type="button" id="btnUpload" onclick="btnUpload_Click()" value="Upload File" />
         <br /><br />
-        <textarea id="displayInfo" style="width:500px; height:600px;"></textarea>
+        <textarea id="displayInfo" style="width:500px; height:400px;" spellcheck="false"></textarea>
+        <textarea id="debugInfo" style="width:500px; height: 400px;" spellcheck="false"></textarea>
 	</body>
 </html>
