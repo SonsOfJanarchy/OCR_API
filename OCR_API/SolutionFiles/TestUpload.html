@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -23,6 +24,7 @@
 			$.ajax({
 				accepts: "*",
 				url: "http://localhost:61924/OCR",
+                //url: "//10.25.232.178/OCR",
 				type: "POST",
 				dataType: "json",
 				contentType: "application/json",
@@ -30,7 +32,6 @@
 				jsonp: false,
 				processData: false,
                 cache: false,
-                async: true,
 				data: JSON.stringify(sendData),
 				success: function (response) {
 					ParseResult(response.jsonResponse);
@@ -40,7 +41,7 @@
 					if (jqXHR.status === 0) {
 						msg = 'Not connected.\n Verify Network.';
 					} else if (jqXHR.status == 404) {
-						msg = 'Requested page not found. [404]';
+						msg = 'Requested page not found. [404] Note: Possible file upload size was too large.';
 					} else if (jqXHR.status == 500) {
 						msg = 'Internal Server Error [500].';
 					} else if (exception === 'parsererror') {
@@ -53,7 +54,7 @@
 						msg = 'Uncaught Error.\n' + jqXHR.responseText;
 					}
 					
-					alert(msg);
+					alert(msg + '\n\n' + jqXHR.responseText);
 				}
 			});
         }

@@ -37,10 +37,12 @@ namespace OCR_API.ServiceInterface
                 ocr.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.,/");
                 ocr.Init(@"C:\source\innovation\Content\tessdata", "eng", false);
 
-                var resizedImage = (Bitmap)Resize(image, (7000), (7000), false);
+                var resizedImage = (Bitmap)Resize(image, (3000), (3000), false);
                 resizedImage.SetResolution(300, 300);
 
-                var result = ocr.DoOCR(resizedImage, Rectangle.Empty);
+                var blackAndWhiteImage = BlackAndWhite(resizedImage, new Rectangle(0, 0, resizedImage.Width, resizedImage.Height));
+
+                var result = ocr.DoOCR(blackAndWhiteImage, Rectangle.Empty);
 
                 OCRRawDataModel dataItems = new OCRRawDataModel();
                 dataItems.DataList = new List<OCRRawDataModel.RawDataItem>();
@@ -95,6 +97,40 @@ namespace OCR_API.ServiceInterface
             }
 
             return res;
+        }
+
+        private static Bitmap BlackAndWhite(Bitmap image, Rectangle rectangle)
+        {
+            Bitmap blackAndWhite = new System.Drawing.Bitmap(image.Width, image.Height);
+
+            // make an exact copy of the bitmap provided
+            using (Graphics graphics = System.Drawing.Graphics.FromImage(blackAndWhite))
+                graphics.DrawImage(image, new System.Drawing.Rectangle(0, 0, image.Width, image.Height),
+                    new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
+
+            // for every pixel in the rectangle region
+            for (Int32 xx = rectangle.X; xx < rectangle.X + rectangle.Width && xx < image.Width; xx++)
+            {
+                for (Int32 yy = rectangle.Y; yy < rectangle.Y + rectangle.Height && yy < image.Height; yy++)
+                {
+                    // average the red, green and blue of the pixel to get a gray value
+                    Color pixel = blackAndWhite.GetPixel(xx, yy);
+                    Int32 sum = (pixel.R + pixel.G + pixel.B);
+
+                    if (sum <= 400)
+                    {
+                        blackAndWhite.SetPixel(xx, yy, Color.FromArgb(0, 0, 0));
+                    }
+                    else
+                    {
+                        blackAndWhite.SetPixel(xx, yy, Color.FromArgb(255, 255, 255));
+                    }
+
+
+                }
+            }
+
+            return blackAndWhite;
         }
     }
 }
